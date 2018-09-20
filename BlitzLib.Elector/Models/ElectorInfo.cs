@@ -21,7 +21,19 @@ namespace BlitzLib.Elector.Models
         /// DateTime of last call in UTC <c>DateTime.UtcNow</c>
         /// </summary>
         public DateTime LastCallUtc { get; set; }
-
+        /// <summary>
+        /// Method to update last call to now
+        /// </summary>
         public void UpdateLastCallUtc() { this.LastCallUtc = DateTime.UtcNow;  }
+
+        /// <summary>
+        /// Debug string
+        /// </summary>
+        /// <returns>String version of object</returns>
+        public override string ToString()
+        {
+            return string.Format("{0}-{1}", this.ApplicationName, this.UniqueInstanceId);
+        }
+
     }
 }

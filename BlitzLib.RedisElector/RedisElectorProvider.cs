@@ -1,6 +1,5 @@
 ﻿using BlitzLib.Elector;
 using BlitzLib.Elector.Models;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
@@ -13,15 +12,12 @@ namespace BlitzLib.RedisElector
 
         private Models.RedisConfiguration _config;
 
-        private ILogger logger;
-
         /// <summary>
         /// CTOR
         /// </summary>
         /// <param name="config">RedisConfiguration</param>
-        public RedisElectorProvider(ILogger logger, Models.RedisConfiguration config)
+        public RedisElectorProvider( Models.RedisConfiguration config)
         {
-            if (logger == null) throw new ArgumentNullException("logger");
             if (config == null) throw new ArgumentNullException("config");
             if (!config.IsValid) throw new InvalidOperationException("A Valid Redis configuration is required");
             _config = config;
@@ -76,10 +72,7 @@ namespace BlitzLib.RedisElector
 
                 trans.Execute();
             }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "RedisElectorProvider.AmIMaster");
-            }
+            
             finally
             {
                 db = null;

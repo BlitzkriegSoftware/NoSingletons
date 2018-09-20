@@ -13,7 +13,6 @@ namespace BlitzLib.RedisElector.Test
     {
         #region "Properties"
         private RedisConfiguration redisConfig;
-        private readonly ILogger _logger;
 
         private const string ApplicationName = "T_RedisElector";
         #endregion
@@ -21,45 +20,18 @@ namespace BlitzLib.RedisElector.Test
         #region "CTOR"
         public T_RedisElector()
         {
-            _logger = CreateLogger();
             var text = System.IO.File.ReadAllText(@".\ElectorRedisConfig.json");
             redisConfig = JsonConvert.DeserializeObject<RedisConfiguration>(text);
         }
         #endregion
 
-        #region "Log Factory"
-
-        private static ILoggerFactory _Factory = null;
-
-        public void ConfigureLogger(ILoggerFactory factory)
-        {
-            factory.AddConsole();
-        }
-
-        public ILoggerFactory LoggerFactory
-        {
-            get
-            {
-                if (_Factory == null)
-                {
-                    _Factory = new LoggerFactory();
-                    ConfigureLogger(_Factory);
-                }
-                return _Factory;
-            }
-            set { _Factory = value; }
-        }
-
-        public ILogger CreateLogger() => LoggerFactory.CreateLogger<T_RedisElector>();
-
-        #endregion
 
         [TestMethod]
         public void ConCurr_1()
         {
             bool amIMaster = false;
 
-            RedisElectorProvider prov = new RedisElectorProvider(_logger, redisConfig);
+            RedisElectorProvider prov = new RedisElectorProvider( redisConfig);
 
             prov.SetExpirationMilliseconds(RedisElectorProvider.Recommended_ExpirationMilliseconds);
 

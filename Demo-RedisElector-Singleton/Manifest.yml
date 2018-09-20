@@ -1,0 +1,12 @@
+﻿applications:
+- name: singleton-demo
+  memory: 128m
+  stack: cflinuxfs2
+  buildpack: binary_buildpack
+  path: .\bin\linux-x64
+  instances: 3
+  no-route: true
+  health-check-type: process
+  command: ./Demo-RedisElector-Singleton
+  services:
+    - redis-tile

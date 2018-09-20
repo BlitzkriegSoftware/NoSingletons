@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>Demo_RedisElector_Singleton</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="VCAP_Services.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="VCAP_Services.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.505" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlitzLib.Elector\BlitzLib.Elector.csproj" />
+    <ProjectReference Include="..\BlitzLib.RedisElector\BlitzLib.RedisElector.csproj" />
+  </ItemGroup>
+
+</Project>
