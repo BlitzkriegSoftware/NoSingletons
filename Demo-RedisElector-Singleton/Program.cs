@@ -33,20 +33,22 @@ namespace Demo_RedisElector_Singleton
 
                     if (dice.Next(1, 100) > 70)
                     {
-                        logger.LogWarning("Faulting: {0}", whoIAm.ToString());
-                        Thread.Sleep(RedisElectorProvider.Recommended_ExpirationMilliseconds * 10);
+                        int waiter = RedisElectorProvider.Recommended_ExpirationMilliseconds * 10;
+                        logger.LogWarning("{0} for {1} ms, Faulting", whoIAm.UniqueInstanceId, waiter);
+                        Thread.Sleep(waiter);
                     } else
                     {
                         // Fake: Unit of Work
-                        logger.LogInformation("Doing work: {0}", whoIAm.ToString());
-                        int waiter = (int)(RedisElectorProvider.Recommended_ExpirationMilliseconds * dice.NextDouble()) + (int)(RedisElectorProvider.Recommended_ExpirationMilliseconds * 0.25);
+                        int waiter = (int)((RedisElectorProvider.Recommended_ExpirationMilliseconds / 2) * dice.NextDouble()) + (int)(RedisElectorProvider.Recommended_ExpirationMilliseconds * 0.10);
+                        logger.LogInformation("{0} for {1} ms, Working", whoIAm.UniqueInstanceId, waiter);
                         Thread.Sleep(waiter);
                     }
                 }
                 else
                 {
-                    logger.LogInformation("No work: {0}", whoIAm.ToString());
-                    Thread.Sleep(RedisElectorProvider.Minimim_ExpirationMilliseconds);
+                    int waiter = RedisElectorProvider.Minimim_ExpirationMilliseconds;
+                    logger.LogInformation("{0} for {1} ms, Idle", whoIAm.UniqueInstanceId, waiter);
+                    Thread.Sleep(waiter);
                 }
             }
 
