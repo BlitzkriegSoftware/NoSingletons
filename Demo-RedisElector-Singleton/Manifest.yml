@@ -6,6 +6,7 @@
   path: .\bin\linux-x64
   instances: 3
   no-route: true
+  disk_quota: 256MB
   health-check-type: process
   command: ./Demo-RedisElector-Singleton
   services:
