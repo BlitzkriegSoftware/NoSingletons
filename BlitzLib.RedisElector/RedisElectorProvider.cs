@@ -12,11 +12,13 @@ namespace BlitzLib.RedisElector
 
         private Models.RedisConfiguration _config;
 
+        private const string NO_INSTANCE = "(n/a)";
+
         /// <summary>
         /// CTOR
         /// </summary>
         /// <param name="config">RedisConfiguration</param>
-        public RedisElectorProvider( Models.RedisConfiguration config)
+        public RedisElectorProvider(Models.RedisConfiguration config)
         {
             if (config == null) throw new ArgumentNullException("config");
             if (!config.IsValid) throw new InvalidOperationException("A Valid Redis configuration is required");
@@ -72,7 +74,7 @@ namespace BlitzLib.RedisElector
 
                 trans.Execute();
             }
-            
+
             finally
             {
                 db = null;
@@ -81,6 +83,41 @@ namespace BlitzLib.RedisElector
             }
 
             return amI;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="applicationName"></param>
+        /// <returns></returns>
+        public bool ForceElection(string applicationName)
+        {
+            ConnectionMultiplexer redis;
+            IDatabase db;
+            ITransaction trans;
+
+            try
+            {
+                redis = ConnectionMultiplexer.Connect(this._config.RedisConnectionString());
+                redis.IncludeDetailInExceptions = true;
+                db = redis.GetDatabase();
+
+                trans = db.CreateTransaction();
+
+                DateTime stamp = DateTime.UtcNow.AddDays(-1);
+                var info = new ElectorInfo() { LastCallUtc = stamp, ApplicationName = applicationName, UniqueInstanceId = NO_INSTANCE };
+                UpdateKey(db, info, stamp);
+
+                trans.Execute();
+            }
+            finally
+            {
+                db = null;
+                trans = null;
+                redis = null;
+            }
+
+            return true;
         }
 
         private void UpdateKey(IDatabase db, ElectorInfo info, DateTime stamp)
@@ -113,5 +150,6 @@ namespace BlitzLib.RedisElector
         {
             return _expirationTolerance;
         }
+
     }
 }

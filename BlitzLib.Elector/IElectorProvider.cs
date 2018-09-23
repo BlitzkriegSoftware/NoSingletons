@@ -12,6 +12,13 @@
         bool AmIMaster(Models.ElectorInfo info);
 
         /// <summary>
+        /// Force an election
+        /// </summary>
+        /// <param name="applicationName">Application name</param>
+        /// <returns>True if so</returns>
+        bool ForceElection(string applicationName);
+
+        /// <summary>
         /// Expiration of Mastery if not updated
         /// </summary>
         /// <param name="milliseconds">Master expires after milliseconds of non-activity</param>
