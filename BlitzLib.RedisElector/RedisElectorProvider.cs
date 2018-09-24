@@ -26,11 +26,11 @@ namespace BlitzLib.RedisElector
         }
 
         /// <summary>
-        /// Am I Master? 
+        /// Am I Primary? 
         /// </summary>
         /// <param name="info">ElectorInfo</param>
         /// <returns>True, if so</returns>
-        public bool AmIMaster(ElectorInfo info)
+        public bool AmIPrimary(ElectorInfo info)
         {
             bool amI = false;
 

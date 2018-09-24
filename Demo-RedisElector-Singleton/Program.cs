@@ -45,12 +45,12 @@ namespace Demo_RedisElector_Singleton
 
             while (shouldRun)
             {
-                if (prov.AmIMaster(whoIAm))
+                if (prov.AmIPrimary(whoIAm))
                 {
                     if (dice.Next(1, 100) > 70)
                     {
                         int waiter = RedisElectorProvider.Recommended_ExpirationMilliseconds * 2;
-                        logger.LogWarning("{0} for {1} ms, Master Faulting", whoIAm.UniqueInstanceId, waiter);
+                        logger.LogWarning("{0} for {1} ms, Primary Faulting", whoIAm.UniqueInstanceId, waiter);
                         prov.ForceElection(whoIAm.ApplicationName);
                         Thread.Sleep(waiter);
                     }
@@ -58,14 +58,14 @@ namespace Demo_RedisElector_Singleton
                     {
                         // Fake: Unit of Work
                         int waiter = dice.Next(RedisElectorProvider.Minimim_ExpirationMilliseconds, RedisElectorProvider.Recommended_ExpirationMilliseconds * 2);
-                        logger.LogInformation("{0} for {1} ms, Master Working", whoIAm.UniqueInstanceId, waiter);
+                        logger.LogInformation("{0} for {1} ms, Primary Working", whoIAm.UniqueInstanceId, waiter);
                         Thread.Sleep(waiter);
                     }
                 }
                 else
                 {
                     int waiter = RedisElectorProvider.Minimim_ExpirationMilliseconds;
-                    logger.LogInformation("{0} for {1} ms, Not Master", whoIAm.UniqueInstanceId, waiter);
+                    logger.LogInformation("{0} for {1} ms, Not Primary", whoIAm.UniqueInstanceId, waiter);
                     Thread.Sleep(waiter);
                 }
             }

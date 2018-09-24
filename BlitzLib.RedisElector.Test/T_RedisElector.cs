@@ -29,7 +29,7 @@ namespace BlitzLib.RedisElector.Test
         [TestMethod]
         public void ConCurr_1()
         {
-            bool amIMaster = false;
+            bool amIPrimary = false;
 
             RedisElectorProvider prov = new RedisElectorProvider( redisConfig);
 
@@ -44,8 +44,8 @@ namespace BlitzLib.RedisElector.Test
                 UniqueInstanceId = Guid.NewGuid().ToString()
             };
 
-            amIMaster = prov.AmIMaster(agent1);
-            Assert.IsTrue(amIMaster, "Agent 1");
+            amIPrimary = prov.AmIPrimary(agent1);
+            Assert.IsTrue(amIPrimary, "Agent 1");
 
             var agent2 = new ElectorInfo()
             {
@@ -54,26 +54,26 @@ namespace BlitzLib.RedisElector.Test
                 UniqueInstanceId = Guid.NewGuid().ToString()
             };
 
-            amIMaster = prov.AmIMaster(agent2);
-            Assert.IsFalse(amIMaster, "Agent 2");
+            amIPrimary = prov.AmIPrimary(agent2);
+            Assert.IsFalse(amIPrimary, "Agent 2");
 
             Thread.Sleep(RedisElectorProvider.Recommended_ExpirationMilliseconds + 1000);
 
             agent2.LastCallUtc = DateTime.UtcNow;
 
-            amIMaster = prov.AmIMaster(agent2);
-            Assert.IsTrue(amIMaster, "Agent 2");
+            amIPrimary = prov.AmIPrimary(agent2);
+            Assert.IsTrue(amIPrimary, "Agent 2");
 
             agent1.UpdateLastCallUtc();
 
-            amIMaster = prov.AmIMaster(agent1);
-            Assert.IsFalse(amIMaster, "Agent 1");
+            amIPrimary = prov.AmIPrimary(agent1);
+            Assert.IsFalse(amIPrimary, "Agent 1");
 
-            amIMaster = prov.AmIMaster(agent1);
-            Assert.IsFalse(amIMaster, "Agent 1");
+            amIPrimary = prov.AmIPrimary(agent1);
+            Assert.IsFalse(amIPrimary, "Agent 1");
 
-            amIMaster = prov.AmIMaster(agent2);
-            Assert.IsTrue(amIMaster, "Agent 2");
+            amIPrimary = prov.AmIPrimary(agent2);
+            Assert.IsTrue(amIPrimary, "Agent 2");
         }
     }
 }

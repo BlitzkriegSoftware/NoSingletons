@@ -7,7 +7,7 @@
     <Copyright>Copyright © 2018</Copyright>
     <Company>Blitzkrieg Software / Stuart Williams</Company>
     <Description>Single Service Election Demo</Description>
-    <FileVersion>1.0.0.6</FileVersion>
+    <FileVersion>1.1.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
