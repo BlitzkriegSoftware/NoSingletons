@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-rediselector-singleton
+  labels:
+    purpose: test-redis-with-program
+spec:
+  containers:
+  - name: demo-rediselector-singleton
+    image: docker.io/blitzkriegsoftware/kubedemos
+  restartPolicy: OnFailure
+ 

@@ -25,6 +25,9 @@ namespace Demo_RedisElector_Singleton
 
             logger = LogFactoryHelper.CreateLogger<Program>();
 
+            string fallbackFilename = @"VCAP_Services.json";
+            if (args.Length > 0) fallbackFilename = args[0];
+
             // Get Assembly Object, casting it to this class type
             var assembly = typeof(Program).Assembly;
             // Get all custom attribute data
@@ -39,7 +42,7 @@ namespace Demo_RedisElector_Singleton
             var whoIAm = new ElectorInfo() { ApplicationName = "Demo_RedisElector_Singleton", LastCallUtc = DateTime.UtcNow, UniqueInstanceId = Guid.NewGuid().ToString() };
             logger.LogInformation("I Am: {0}", whoIAm.ToString());
 
-            var redisConfig = GetConfig("p-redis");
+            var redisConfig = GetConfig("p-redis", fallbackFilename);
             var prov = new RedisElectorProvider(redisConfig);
             prov.SetExpirationMilliseconds(RedisElectorProvider.Recommended_ExpirationMilliseconds);
 
@@ -93,11 +96,10 @@ namespace Demo_RedisElector_Singleton
 
         #region "REDIS Configuration"
 
-        private static RedisConfiguration GetConfig(string serviceName)
+        private static RedisConfiguration GetConfig(string serviceName, string fallbackFilename)
         {
-            string vcapServicesFile = @".\VCAP_Services.json";
             var config = new RedisConfiguration();
-            var d = VcapServicesParser.GetSettings(logger, serviceName, vcapServicesFile);
+            var d = VcapServicesParser.GetSettings(logger, serviceName, fallbackFilename);
 
             foreach (var key in d.Keys)
             {

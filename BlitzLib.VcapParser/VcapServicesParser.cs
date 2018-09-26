@@ -18,7 +18,7 @@ namespace BlitzLib.VcapParser
         /// </summary>
         /// <param name="logger">ILogger</param>
         /// <param name="serviceName">Service Name from JSON <c>p-redis</c></param>
-        /// <param name="localFilename">(optional) local filename in json format, same as envirnonment variable</param>
+        /// <param name="localFilename">(optional) local filename in json in the same format as envirnonment variable</param>
         /// <returns>Dictionary of names (lowercase) and values (as cased)</returns>
         public static Dictionary<string, string> GetSettings(ILogger logger, string serviceName, string localFilename = "")
         {
@@ -28,7 +28,7 @@ namespace BlitzLib.VcapParser
             if (string.IsNullOrWhiteSpace(vcap_services) && !string.IsNullOrWhiteSpace(localFilename))
             {
                 vcap_services = System.IO.File.ReadAllText(localFilename);
-                if (logger != null) logger.LogWarning("VCAP_SERVICES: Falling back to JSON file");
+                if (logger != null) logger.LogWarning("VCAP_SERVICES: Falling back to JSON file: " + localFilename);
             }
 
             if(!string.IsNullOrWhiteSpace(vcap_services))
