@@ -28,7 +28,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Kubernetes.Tools.Targets" Version="0.18.1779678" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="StackExchange.Redis" Version="2.0.505" />
   </ItemGroup>
 
