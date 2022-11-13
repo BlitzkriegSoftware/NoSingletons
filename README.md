@@ -1,5 +1,14 @@
 # NoSingletons #
+
 Allows multiple instances of singletons to be in an election for HA, only one processes at a time.
+
+Update to .NET 6
+
+## Prerequisites
+
+1. Have docker desktop or similar running
+2. Invoke `Scripts\Redis-Start.ps1` to get REDIS running in your docker
+3. Set start up project to `BlitzLib.RedisElector` and run
 
 ## Reason ##
 
@@ -22,15 +31,7 @@ So, this uses Redis to keep track of which instance of a process is the master.
 
 ## About ##
 
-> Stuart Williams
-
-* Cloud/DevOps Practice Lead
- 
-* Magenic Technologies Inc.
-* Office of the CTO, National Markets
- 
-* <a href="mailto:stuartw@magenic.com" target="_blank">stuartw@magenic.com</a> (e-mail)
- 
-* Blog: <a href="http://blitzkriegsoftware.net/Blog" target="_blank">http://blitzkriegsoftware.net/Blog</a> 
+* Stuart Williams
+* <a href="mailto:Stuart.T.Williams@outlook.com" target="_blank">Stuart.T.Williams@outlook.com</a> (e-mail)
 * LinkedIn: <a href="http://lnkd.in/P35kVT" target="_blank">http://lnkd.in/P35kVT</a> 
 * YouTube: <a href="https://www.youtube.com/channel/UCO88zFRJMTrAZZbYzhvAlMg" target="_blank">https://www.youtube.com/channel/UCO88zFRJMTrAZZbYzhvAlMg</a> 

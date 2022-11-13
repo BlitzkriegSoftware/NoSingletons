@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlitzLib.RedisElector", "BlitzLib.RedisElector\BlitzLib.RedisElector.csproj", "{C5BAF52A-4F3D-48A8-B354-6BC3AE8CFAE6}"
 EndProject
@@ -20,9 +20,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo-RedisElector-Singleton
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlitzLib.LogFactory", "BlitzLib.LogFactory\BlitzLib.LogFactory.csproj", "{AF83409A-8E91-4269-A1C4-A8E8D8E1CD71}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlitzLib.VcapParser", "BlitzLib.VcapParser\BlitzLib.VcapParser.csproj", "{838A6624-55BB-43B8-88F4-8550C82FDDBA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlitzLib.AssembyInfo", "BlitzLib.AssembyInfo\BlitzLib.AssembyInfo.csproj", "{AA1B8306-6ACA-4DEC-A60F-7302A63896CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{32D94F05-D5E9-41BA-9215-6CA63CFF0378}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Redis-Start.ps1 = Scripts\Redis-Start.ps1
+		Scripts\Redis-Stop.ps1 = Scripts\Redis-Stop.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,18 +98,6 @@ Global
 		{AF83409A-8E91-4269-A1C4-A8E8D8E1CD71}.Release|x64.Build.0 = Release|Any CPU
 		{AF83409A-8E91-4269-A1C4-A8E8D8E1CD71}.Release|x86.ActiveCfg = Release|Any CPU
 		{AF83409A-8E91-4269-A1C4-A8E8D8E1CD71}.Release|x86.Build.0 = Release|Any CPU
-		{838A6624-55BB-43B8-88F4-8550C82FDDBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{838A6624-55BB-43B8-88F4-8550C82FDDBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{838A6624-55BB-43B8-88F4-8550C82FDDBA}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{838A6624-55BB-43B8-88F4-8550C82FDDBA}.Debug|x64.Build.0 = Debug|Any CPU
-		{838A6624-55BB-43B8-88F4-8550C82FDDBA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{838A6624-55BB-43B8-88F4-8550C82FDDBA}.Debug|x86.Build.0 = Debug|Any CPU
-		{838A6624-55BB-43B8-88F4-8550C82FDDBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{838A6624-55BB-43B8-88F4-8550C82FDDBA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{838A6624-55BB-43B8-88F4-8550C82FDDBA}.Release|x64.ActiveCfg = Release|Any CPU
-		{838A6624-55BB-43B8-88F4-8550C82FDDBA}.Release|x64.Build.0 = Release|Any CPU
-		{838A6624-55BB-43B8-88F4-8550C82FDDBA}.Release|x86.ActiveCfg = Release|Any CPU
-		{838A6624-55BB-43B8-88F4-8550C82FDDBA}.Release|x86.Build.0 = Release|Any CPU
 		{AA1B8306-6ACA-4DEC-A60F-7302A63896CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AA1B8306-6ACA-4DEC-A60F-7302A63896CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA1B8306-6ACA-4DEC-A60F-7302A63896CB}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -121,6 +113,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{32D94F05-D5E9-41BA-9215-6CA63CFF0378} = {1899BD7E-0F71-4AAC-BE00-FB081E047D4E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C2830A8D-F6D9-4D1B-87A8-9E0D7131E6D2}

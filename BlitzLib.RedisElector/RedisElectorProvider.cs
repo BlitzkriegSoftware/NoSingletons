@@ -46,8 +46,16 @@ namespace BlitzLib.RedisElector
 
             try
             {
-                redis = ConnectionMultiplexer.Connect(this._config.RedisConnectionString());
-                redis.IncludeDetailInExceptions = true;
+                redis = ConnectionMultiplexer.Connect(this._config.RedisConnectionString, (opts) =>
+                {
+                    opts.IncludeDetailInExceptions = true;
+                    opts.ClientName = "RedisElectorProvider";
+                    opts.AllowAdmin = true;
+                    opts.ConnectTimeout = 20;
+                    opts.AsyncTimeout = 10;
+
+                });
+                
                 db = redis.GetDatabase();
 
                 trans = db.CreateTransaction();
@@ -98,8 +106,16 @@ namespace BlitzLib.RedisElector
 
             try
             {
-                redis = ConnectionMultiplexer.Connect(this._config.RedisConnectionString());
-                redis.IncludeDetailInExceptions = true;
+                redis = ConnectionMultiplexer.Connect(this._config.RedisConnectionString, (opts) =>
+                {
+                    opts.IncludeDetailInExceptions = true;
+                    opts.ClientName = "RedisElectorProvider";
+                    opts.AllowAdmin = true;
+                    opts.ConnectTimeout = 20;
+                    opts.AsyncTimeout = 10;
+
+                });
+                
                 db = redis.GetDatabase();
 
                 trans = db.CreateTransaction();

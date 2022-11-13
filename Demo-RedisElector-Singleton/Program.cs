@@ -3,7 +3,6 @@ using BlitzLib.Elector.Models;
 using BlitzLib.LogFactory;
 using BlitzLib.RedisElector;
 using BlitzLib.RedisElector.Models;
-using BlitzLib.VcapParser;
 
 using Microsoft.Extensions.Logging;
 
@@ -42,7 +41,7 @@ namespace Demo_RedisElector_Singleton
             var whoIAm = new ElectorInfo() { ApplicationName = "Demo_RedisElector_Singleton", LastCallUtc = DateTime.UtcNow, UniqueInstanceId = Guid.NewGuid().ToString() };
             logger.LogInformation("I Am: {0}", whoIAm.ToString());
 
-            var redisConfig = GetConfig("p-redis", fallbackFilename);
+            var redisConfig = GetConfig();
             var prov = new RedisElectorProvider(redisConfig);
             prov.SetExpirationMilliseconds(RedisElectorProvider.Recommended_ExpirationMilliseconds);
 
@@ -96,26 +95,9 @@ namespace Demo_RedisElector_Singleton
 
         #region "REDIS Configuration"
 
-        private static RedisConfiguration GetConfig(string serviceName, string fallbackFilename)
+        private static RedisConfiguration GetConfig()
         {
             var config = new RedisConfiguration();
-            var d = VcapServicesParser.GetSettings(logger, serviceName, fallbackFilename);
-
-            foreach (var key in d.Keys)
-            {
-                switch (key.ToLowerInvariant())
-                {
-                    case "host":
-                        config.Host = d[key];
-                        break;
-                    case "password":
-                        config.Password = d[key];
-                        break;
-                    case "port":
-                        config.Port = int.Parse(d[key]);
-                        break;
-                }
-            }
 
             return config;
         }

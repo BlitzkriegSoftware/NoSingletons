@@ -9,32 +9,30 @@ namespace BlitzLib.LogFactory
     public static class LogFactoryHelper
     {
 
-        private static ILoggerFactory _Factory = null;
-
-        /// <summary>
-        /// Configure Logger
-        /// </summary>
-        /// <param name="factory">ILoggerFactory</param>
-        private static void ConfigureLogger(ILoggerFactory factory)
-        {
-            factory.AddConsole();
-        }
-
+        private static ILoggerFactory _factory = null;
+        
         /// <summary>
         /// Creates logger factory
         /// </summary>
-        private static ILoggerFactory LoggerFactory
+        private static ILoggerFactory ConsoleLoggerFactory
         {
             get
             {
-                if (_Factory == null)
+                if (_factory == null)
                 {
-                    _Factory = new LoggerFactory();
-                    ConfigureLogger(_Factory);
+                    _factory = LoggerFactory.Create(builder =>
+                    {
+                        builder.AddFilter("Microsoft", LogLevel.Warning)
+                               .AddFilter("System", LogLevel.Warning)
+                               .SetMinimumLevel(LogLevel.Trace)
+                               .AddConsole()
+                               ;
+                        
+                    });
                 }
-                return _Factory;
+                return _factory;
             }
-            set { _Factory = value; }
+            set { _factory = value; }
         }
 
         /// <summary>
@@ -42,7 +40,7 @@ namespace BlitzLib.LogFactory
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         /// <returns>Logger</returns>
-        public static ILogger CreateLogger<T>() => LoggerFactory.CreateLogger<T>();
+        public static ILogger CreateLogger<T>() => ConsoleLoggerFactory.CreateLogger<T>();
 
     }
 }
