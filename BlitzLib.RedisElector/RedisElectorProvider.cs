@@ -152,7 +152,7 @@ namespace BlitzLib.RedisElector
         /// <summary>
         /// Minimum expiration tolerance
         /// </summary>
-        public const int Minimim_ExpirationMilliseconds = 1000 * 3;
+        public const int Minimim_ExpirationMilliseconds = 1000;
 
         private int _expirationTolerance;
 

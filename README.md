@@ -8,7 +8,7 @@ Update to .NET 6
 
 1. Have docker desktop or similar running
 2. Invoke `Scripts\Redis-Start.ps1` to get REDIS running in your docker
-3. Set start up project to `BlitzLib.RedisElector` and run
+3. Set start up project to `Demo-RedisElector-Singleton` and run
 
 ## Reason ##
 

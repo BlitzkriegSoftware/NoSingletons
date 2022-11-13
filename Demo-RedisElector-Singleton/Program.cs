@@ -24,9 +24,6 @@ namespace Demo_RedisElector_Singleton
 
             logger = LogFactoryHelper.CreateLogger<Program>();
 
-            string fallbackFilename = @"VCAP_Services.json";
-            if (args.Length > 0) fallbackFilename = args[0];
-
             // Get Assembly Object, casting it to this class type
             var assembly = typeof(Program).Assembly;
             // Get all custom attribute data
@@ -49,7 +46,7 @@ namespace Demo_RedisElector_Singleton
             {
                 if (prov.AmIPrimary(whoIAm))
                 {
-                    if (dice.Next(1, 100) > 70)
+                    if (dice.Next(1, 100) >= 60)
                     {
                         int waiter = RedisElectorProvider.Recommended_ExpirationMilliseconds * 2;
                         logger.LogWarning("{0} for {1} ms, Primary Faulting", whoIAm.UniqueInstanceId, waiter);
@@ -97,8 +94,8 @@ namespace Demo_RedisElector_Singleton
 
         private static RedisConfiguration GetConfig()
         {
-            var config = new RedisConfiguration();
-
+            var text = System.IO.File.ReadAllText(@".\RedisElector.json");
+            var config = Newtonsoft.Json.JsonConvert.DeserializeObject<BlitzLib.RedisElector.Models.RedisConfiguration>(text);
             return config;
         }
 
